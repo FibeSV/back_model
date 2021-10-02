@@ -1,34 +1,28 @@
-import joblib
 import uvicorn
 from fastapi import FastAPI
-from pydantic import BaseModel
-import keras
+from modelim import model_load, data_parsing
+import numpy as np
+import json
 
-# App creation and model loading
 app = FastAPI()
-model = keras.models.load_model("./model.h5")
-
-class MFcc(BaseModel):
-    """
-    Input features validation for the ML model
-    """
-    coefs: list
-
-
+file = open("./config.json")
+config = json.load(file)
+n_mfcc = config["n_mfcc"]
+n_window = config["n_window"]
+n_hop = config["n_hop"]
+model = model_load(config["model_name"])
 
 @app.post('/predict')
-def predict(data: MFcc):
+def predict(data: list):
     """
-    :param iris: input data from the post request
-    :return: predicted iris type
+    :data: input data from the post request
+    :return: predicted type
     """
-    features = [data.coefs]
-    prediction = model.predict(features).tolist()[0]
-    return {
-        "prediction": prediction
-    }
-
+    features, meta_data = data_parsing( data, n_mfcc, n_window, n_hop )
+    prediction = model.predict(features).tolist()
+    meta_data["prediction"] =  str(prediction)
+    return meta_data
 
 if __name__ == '__main__':
     # Run server using given host and port
-    uvicorn.run(app, host='127.0.0.1', port=80)
+    uvicorn.run(app, host=config["host"], port=config["port"])

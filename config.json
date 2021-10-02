@@ -1,0 +1,8 @@
+{
+    "model_name":"./model.joblib",
+    "host":"127.0.0.1",
+    "port":80,
+    "n_mfcc":15,
+    "n_window":24,
+    "n_hop":1
+}

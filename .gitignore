@@ -1,2 +1,4 @@
 backvenv
 test.py
+test.json
+__pycache__
