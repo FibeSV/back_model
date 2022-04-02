@@ -1,0 +1,8 @@
+{
+    "model_name":"./Net_181121.pth",
+    "host":"127.0.0.1",
+    "port":80,
+    "n_mfcc":15,
+    "n_window":18,
+    "n_hop":1
+}

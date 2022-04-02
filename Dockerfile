@@ -5,6 +5,9 @@ FROM python:3.8.10
 COPY server.py /app/
 COPY requirements.txt /app/
 COPY model.h5 /app/
+COPY model.joblib /app/
+COPY modelim.py /app/
+COPY config.json /app/
 # Set working directory to previously added app directory
 WORKDIR /app/
 
