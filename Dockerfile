@@ -4,7 +4,7 @@ FROM python:3.8.10
 # Copy files to the container
 COPY server.py /app/
 COPY requirements.txt /app/
-COPY model.h5 /app/
+COPY Net_181121.pth /app/
 COPY model.joblib /app/
 COPY modelim.py /app/
 COPY config.json /app/

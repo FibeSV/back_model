@@ -12,8 +12,8 @@ n_mfcc = config["n_mfcc"]
 n_window = config["n_window"]
 n_hop = config["n_hop"]
 model = model_load(config["model_name"])
-URL_DATA_HANDLER = 'http://127.0.0.1:8000/api-data/Middle/'
-headers = {'Authorization': 'Token 544aeb619da50e887ba13f6b99c5fbff2fdf1907'}
+URL_DATA_HANDLER = config["URL_DATA_HANDLER"]
+headers =  config["headers"]
 @app.post('/predict')
 def predict(data: list):
     """

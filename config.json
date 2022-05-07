@@ -1,8 +1,11 @@
 {
     "model_name":"./Net_181121.pth",
     "host":"127.0.0.1",
+    "URL_DATA_HANDLER":"http://127.0.0.1:8000/api-data/Middle/",
+    "headers":{"Authorization": "Token 544aeb619da50e887ba13f6b99c5fbff2fdf1907"},
     "port":80,
     "n_mfcc":15,
     "n_window":18,
-    "n_hop":1
+    "n_hop":1,
+    "sr":16000
 }
