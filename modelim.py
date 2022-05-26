@@ -74,8 +74,8 @@ def data_parsing(data, n_mfcc):
     return ceps, meta_data
 
 def model_load(model_name:str):
-    model = ModelDropout()
-    model.load_state_dict(torch.load("./Net_181121.pth"))
+    model = LeNet()
+    model.load_state_dict(torch.load(model_name))
     return model
 
 def frame_analyse(marks):
@@ -109,20 +109,21 @@ n_hop = 1
 def frame_to_sec(x):
     return ((x-1)*mfcc_hop + mfcc_frame)/sr
 
-def mean_hr(prediction, mindur=4):
+def mean_hr(prediction, mindur=1):
     starts, ends = frame_analyse(prediction)
     frame_pred = pd.DataFrame({"starts":starts,"ends":ends})
     frame_pred["duration"] = frame_pred["ends"]-frame_pred["starts"]
     new_df = frame_pred[frame_pred["duration"]>mindur]
     try:
         secst = new_df["starts"].apply(frame_to_sec)
+        print(secst.iloc[-1],secst.iloc[0],secst.shape[0])
         return 60/((secst.iloc[-1]-secst.iloc[0])/secst.shape[0])
     except:
         return 0
 
 def data_proccesing(model, data, n_window, n_hop):
     batch_size = 2
-    sscaler = load('./std_scaler.bin')
+    sscaler = load('./std_scaler_1.bin')
     mfccs = sscaler.transform(data)
     mfccs_frame = util.frame(mfccs, frame_length=n_window, hop_length=n_hop, axis =0)
     val_dataset = TensorDataset(torch.FloatTensor(np.copy(mfccs_frame))[:,None,:,:])

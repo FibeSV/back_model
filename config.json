@@ -1,5 +1,5 @@
 {
-    "model_name":"./Net_181121.pth",
+    "model_name":"./leNet_230522.pth",
     "host":"127.0.0.1",
     "URL_DATA_HANDLER":"http://127.0.0.1:8000/api-data/Middle/",
     "headers":{"Authorization": "Token 544aeb619da50e887ba13f6b99c5fbff2fdf1907"},
